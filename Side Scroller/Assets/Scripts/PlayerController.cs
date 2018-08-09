@@ -21,8 +21,9 @@ public class PlayerController : MonoBehaviour
     public int numExtraJumps;
     public float yDeath;
     private float currentYLocation;
+    public GameObject light;
 
-
+    public float currLight = 2f;
     private Rigidbody2D rb;
 
     void Start()
@@ -46,11 +47,11 @@ public class PlayerController : MonoBehaviour
 
             if (facingRight == false && moveInput > 0)
             {
-                Flip();
+                //Flip();
             }
             else if (facingRight == true && moveInput < 0)
             {
-                Flip();
+                //Flip();
             }
         }
 
@@ -73,6 +74,15 @@ public class PlayerController : MonoBehaviour
             {
                 Down();
             }
+            if (Input.GetKey(KeyCode.Space))
+            {
+                light.SetActive(true);
+                changeLight();
+            } else
+            {
+                light.SetActive(false);
+            }
+            
             currentYLocation = transform.position.y;
             //  Debug.Log(currentYLocation);
         }
@@ -122,5 +132,11 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(0, -1);
             isPlayable = true;
         }
+    }
+
+    void changeLight()
+    {
+        light.transform.localScale = new Vector2(currLight, currLight);
+        currLight -= Time.deltaTime * 0.0001f;
     }
 }
