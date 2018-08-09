@@ -12,9 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool facingRight = true;
     private int extraJumps;
-    private float startX;
-    private float startY;
-
+    private Vector2 start;
     // general 
     public Transform groundCheck;
     public float checkRadius;
@@ -29,10 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // initialize starting points in constructor.
-        startX = transform.position.x;
-        startY = transform.position.y;
-        // initialize Rigidbody component
+        start = transform.position;
         rb = GetComponent<Rigidbody2D>();
         // setter
         extraJumps = numExtraJumps;
@@ -121,7 +116,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Press Enter to start");
 
-        transform.position = new Vector3(startX, startY, 0);
+        transform.position = start;
         if (Input.GetKeyDown(KeyCode.P))
         { 
             rb.velocity = new Vector2(0, -1);
